@@ -33,3 +33,9 @@ class Maze:
                 temp_arr[col_n] = 1 if (cell == True) else 0
             print(temp_arr)
         return
+
+# example usage of maze.py
+"""
+maze = m.Maze(10, 10, .25)
+maze.output()
+"""
