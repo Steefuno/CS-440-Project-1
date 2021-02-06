@@ -24,9 +24,9 @@ def dfs(path, maze, start, end):
     
     if end in predecessors: # compile the path if end is found
         compile_path(path, end, predecessors)
-        return
+        return True
     else:
-        return
+        return False
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
 def dfs_insert_neighbors(maze, current, stack, predecessors):

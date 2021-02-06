@@ -11,12 +11,12 @@ class Maze:
         self.width = width # Number of columns
         self.height = height # Number of rows
         self.density = density # Probability of a given cell to be filled
-        self.maze = []
-        self.generate_maze(width, height, density) # [y][x], 0 := open, 1 := barrier
+        self.maze = np.empty([height, width])
+        self.generate_maze(density) # [y][x], 0 := open, 1 := barrier
         return
 
     # Generates the randomly set maze
-    def generate_maze(self, width, height, density):
+    def generate_maze(self, density):
         # Set barriers based on density
         for index, _ in np.ndenumerate(self.maze):
             self.maze[index[0]][index[1]] = (r.random() < density)

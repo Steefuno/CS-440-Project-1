@@ -4,35 +4,41 @@ import maze as m
 # the neighbors checked when scanning neighbors
 neighbors = [
     (-1, 0), # one space above
+    (-1, 1),
     (0, 1),
+    (1, 1),
     (1, 0),
+    (1, -1),
     (0, -1),
+    (-1, -1),
 ]
 
 # the search starts at [start[0]][start[1]] and searches for [end[0][end[1]]
 # only works for rectangular mazes
 # assumes the params are valid
-def dfs(path, maze, start, end):
-    stack = [ start ]
+def bfs(path, maze, start, end):
+    queue = [ start ]
     predecessors = {
         start : start,
     }
     distances = {
         start : 0
     }
+    count = 0 # count the number of nodes explored 
 
-    while len(stack) > 0:
-        current = stack.pop(0) # pop from fringe
-        dfs_insert_neighbors(maze, current, stack, predecessors, distances) # add current's neighbors to stack and update distances
+    while len(queue) > 0:
+        current = queue.pop(0) # pop from fringe
+        count += 1
+        bfs_insert_neighbors(maze, current, queue, predecessors, distances) # add current's neighbors to queue and update distances
     
     if end in predecessors: # compile the path if end is found
         compile_path(path, end, predecessors)
-        return
+        return count
     else:
-        return
+        return False
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
-def dfs_insert_neighbors(maze, current, stack, predecessors, distances):
+def bfs_insert_neighbors(maze, current, queue, predecessors, distances):
     for neighbor_offset in neighbors:
         neighbor = (
             current[0] + neighbor_offset[0],
@@ -52,7 +58,7 @@ def dfs_insert_neighbors(maze, current, stack, predecessors, distances):
         if (neighbor not in distances) or (distances[neighbor] > distances[current] + 1):
             predecessors[neighbor] = current
             distances[neighbor] = distances[current] + 1
-            stack.insert(0, neighbor)
+            queue.append(neighbor)
         
 
 # assembles the path given the end, predecessors, and distances
