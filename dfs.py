@@ -23,6 +23,8 @@ def dfs(path, maze, start, end):
 
     while len(stack) > 0:
         current = stack.pop(0) # pop from fringe
+        if current == end: # break on end found because we just need to find the end
+            break
         dfs_insert_neighbors(maze, current, stack, predecessors, distances) # add current's neighbors to stack and update distances
     
     if end in predecessors: # compile the path if end is found
