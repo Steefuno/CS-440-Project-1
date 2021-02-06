@@ -4,9 +4,9 @@ import maze as m
 # the neighbors checked when scanning neighbors
 neighbors = [
     (-1, 0), # one space above
+    (0, 1),
     (1, 0),
     (0, -1),
-    (0, 1),
 ]
 
 # the search starts at [start[0]][start[1]] and searches for [end[0][end[1]]
@@ -17,10 +17,13 @@ def dfs(path, maze, start, end):
     predecessors = {
         start : start,
     }
+    distances = {
+        start : 0
+    }
 
     while len(stack) > 0:
         current = stack.pop(0) # pop from fringe
-        dfs_insert_neighbors(maze, current, stack, predecessors) # add current's neighbors to stack and update predecessors
+        dfs_insert_neighbors(maze, current, stack, predecessors, distances) # add current's neighbors to stack and update distances
     
     if end in predecessors: # compile the path if end is found
         compile_path(path, end, predecessors)
@@ -29,7 +32,7 @@ def dfs(path, maze, start, end):
         return
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
-def dfs_insert_neighbors(maze, current, stack, predecessors):
+def dfs_insert_neighbors(maze, current, stack, predecessors, distances):
     for neighbor_offset in neighbors:
         neighbor = (
             current[0] + neighbor_offset[0],
@@ -45,9 +48,10 @@ def dfs_insert_neighbors(maze, current, stack, predecessors):
         if maze.maze[neighbor[0]][neighbor[1]] != 0:
             continue
 
-        # if neighbor has not been looked at before, insert to stack
-        if neighbor not in predecessors:
+        # if path from current to neighbor is closer than neighbor's current path
+        if (neighbor not in distances) or (distances[neighbor] > distances[current] + 1):
             predecessors[neighbor] = current
+            distances[neighbor] = distances[current] + 1
             stack.insert(0, neighbor)
         
 
