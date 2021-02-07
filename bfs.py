@@ -38,7 +38,7 @@ def bfs(path, maze, start, end):
         compile_path(path, end, predecessors)
         return count
     else:
-        return False
+        return count
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
 def bfs_insert_neighbors(maze, current, queue, predecessors, distances):
