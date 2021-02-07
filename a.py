@@ -4,33 +4,41 @@ import maze as m
 # the neighbors checked when scanning neighbors
 neighbors = [
     (-1, 0), # one space above
-    (1, 0),
-    (0, -1),
+    (-1, 1),
     (0, 1),
+    (1, 1),
+    (1, 0),
+    (1, -1),
+    (0, -1),
+    (-1, -1),
 ]
 
 # the search starts at [start[0]][start[1]] and searches for [end[0][end[1]]
 # only works for rectangular mazes
 # assumes the params are valid
-def dfs(path, maze, start, end):
+def a(path, maze, start, end):
     path.clear()
-    stack = [ start ]
+    queue = [ (start, -1) ] # (tuple of location, straight distance to end)
     predecessors = {
         start : start,
     }
+    count = 0 # count the number of nodes explored 
 
-    while len(stack) > 0:
-        current = stack.pop(0) # pop from fringe
-        dfs_insert_neighbors(maze, current, stack, predecessors) # add current's neighbors to stack and update predecessors
+    while len(queue) > 0:
+        current = queue.pop(0)[0] # pop from fringe
+        if current == end:
+            break
+        count += 1
+        a_insert_neighbors(maze, current, end, queue, predecessors) # add current's neighbors to queue and update distances
     
     if end in predecessors: # compile the path if end is found
         compile_path(path, end, predecessors)
-        return True
+        return count
     else:
         return False
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
-def dfs_insert_neighbors(maze, current, stack, predecessors):
+def a_insert_neighbors(maze, current, end, queue, predecessors):
     for neighbor_offset in neighbors:
         neighbor = (
             current[0] + neighbor_offset[0],
@@ -46,13 +54,27 @@ def dfs_insert_neighbors(maze, current, stack, predecessors):
         if maze.maze[neighbor[0]][neighbor[1]] != 0:
             continue
 
-        # if neighbor has not been looked at before, insert to stack
-        if neighbor not in predecessors:
+        # if path from current to neighbor is closer than neighbor's current path
+        if ((neighbor not in predecessors) and (not isQueued(neighbor, queue))):
             predecessors[neighbor] = current
-            stack.insert(0, neighbor)
-        
+            enqueue(neighbor, end, queue)
 
-# assembles the path given the end, predecessors, and distances
+def isQueued(neighbor, queue):
+    for item in queue:
+        if item[0] == neighbor:
+            return True
+    return False
+
+def enqueue(neighbor, end, queue):
+    x_distance = pow(abs(neighbor[0] - end[0]), 2)
+    y_distance = pow(abs(neighbor[1] - end[1]), 2)
+    distance = pow(x_distance + y_distance, .5)
+    for index, item in enumerate(queue):
+        if item[1] > distance:
+            return queue.insert(index, (neighbor, distance))
+    return queue.append( (neighbor, distance) )
+
+# assembles the path given the end, predecessors
 # [start, ... , end]
 def compile_path(path, end, predecessors):
     current = end

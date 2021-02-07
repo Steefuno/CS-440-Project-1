@@ -17,6 +17,7 @@ neighbors = [
 # only works for rectangular mazes
 # assumes the params are valid
 def bfs(path, maze, start, end):
+    path.clear()
     queue = [ start ]
     predecessors = {
         start : start,
@@ -28,6 +29,8 @@ def bfs(path, maze, start, end):
 
     while len(queue) > 0:
         current = queue.pop(0) # pop from fringe
+        if current == end: # stop on end found
+            break
         count += 1
         bfs_insert_neighbors(maze, current, queue, predecessors, distances) # add current's neighbors to queue and update distances
     
