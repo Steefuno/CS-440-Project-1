@@ -1,0 +1,4 @@
+With Density=0.3, within 60 seconds:
+    DFS can search a 1500 by 1500 maze
+    BFS can search a 3400 by 3400 maze
+    A* can search a 1100 by 1100 maze

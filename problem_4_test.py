@@ -16,7 +16,7 @@ search_functions = {
     "a*" : a.a
 }
 
-tries = 5
+tries = 10
 density = .3
 size_increment = 100
 
