@@ -1,0 +1,82 @@
+%https://www.overleaf.com/learn/latex/Creating_a_document_in_LaTeX
+\documentclass[12pt]{report}
+\usepackage{graphicx}
+
+\title{CS 440: This Maze is on Fire}
+\author{Steven Nguyen \& Kyra Kennedy}
+\date{19 February 2021}
+
+\graphicspath{ {./test_results/} }
+\renewcommand{\arraystretch}{1.25}
+
+\begin{document}
+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+\section{Abstract}
+In the first part of the project, we demonstrate generating 2D mazes on command line and demonstrate navigating through the mazes using DFS, BFS, and A*.\\
+In the second part of the project, we demonstrate again navigating, however, there will be a special barrier randomly placed in the maze that expands randomly through neighboring cells.
+
+\section{Problem 1}
+Please see the attached file, \emph{maze.py}, for both generating the maze structure and for filling the structure given parameters.
+
+\break
+\section{Problem 2}
+Please see the attached file, \emph{dfs.py}, for the implementation of DFS.\\
+For finding if a point is reachable from the other, DFS is better than BFS in this case because while both searches find the path in at most the same amount of steps and at least the same amount of steps, DFS uses a much less amount of memory while searching.\\
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Probability of a Graph with Path vs Density.png}
+\caption{Compares the probability that a graph has at least one valid path from start to finish using Manhattan Distance in random 100 by 100 mazes vs density}
+\label{Probability of a Graph with a Complete Path vs Density}
+\end{figure}\\
+We determined that as density increases, the probability that a maze has at least one valid path is lowered.
+
+\break
+\section{Problem 3}
+Please see the attached files, \emph{bfs.py} and \emph{a.py}, for the implementations of BFS and A*.\\
+In our project, when plotting \emph{the number of nodes explored by BFS} and \emph{the number of nodes explored by A*} vs \emph{the density of the generated maze}.\\
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Number of Nodes Explored vs Density in Random 100 by 100 Maze.png}
+\caption{Compares the average number of nodes explored by Euclidean Distance in random 100 by 100 mazes vs density}
+\label{Number of Nodes Explored vs Density}
+\end{figure}\\
+Up until around .5 density, the average number of explored nodes increases because there longer paths must be generated. Then after around .3, there are significantly more mazes that do not have a valid path from start to finish, so less nodes are explored because both there are less explorable nodes and less paths.
+
+\break
+\section{Problem 4}
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}[c]{ |c|c| }
+\hline
+\multicolumn{2}{ |c| }{Max Size Maze for Search Algorithms}\\
+\hline
+Search Algorithm & Max Size\\
+\hline
+DFS & 1500 by 1500\\
+BFS & 3400 by 3400\\
+A* & 1100 by 1100\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Within 60.00 seconds, at 0.3 Density, DFS can search a 1500 by 1500 maze, BFS can search a 3400 by 3400 maze, and A* can search a 1100 by 1100 maze.}
+\label{Probability of a Graph with a Complete Path vs Density}
+\end{figure}
+A* is slow because it is spending too many operations finding which of its neighbors is closer to the end whenever scanning each cell. DFS is slow probably because the start and end cells are not randomly placed and DFS, in our case, scans neighbors starting from the top in a clockwise direction. So, DFS spreads in the downward-left direction while the goal is always in the downward-right direction.
+
+\section{Problem 5}
+do be do be do ba
+
+\break
+\section{Problem 6}
+[Insert plot for success rates here]
+do be do be do ba
+
+\section{Problem 7}
+do be do be do ba
+
+\section{Problem 8}
+With a limited time between moves, we would reduce the computation by reducing the length of the path used in the prediction e.g., pathfind to just a bit after the fire rather than all the way to the end; and by reducing how many paths are searched when predicting, such as paths that go in the opposite direction of the goal.
+
+\end{document}
