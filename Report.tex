@@ -38,11 +38,12 @@ We determined that as density increases, the probability that a maze has at leas
 Please see the attached files, \emph{bfs.py} and \emph{a.py}, for the implementations of BFS and A*.\\
 In our project, when plotting \emph{the number of nodes explored by BFS} and \emph{the number of nodes explored by A*} vs \emph{the density of the generated maze}.\\
 \begin{figure}[h]
-\includegraphics[width=\textwidth]{Number of Nodes Explored vs Density in Random 100 by 100 Maze.png}
-\caption{Compares the average number of nodes explored by Euclidean Distance in random 100 by 100 mazes vs density}
+\includegraphics[width=\textwidth]{Number of Nodes Explored vs Density.png}
+\caption{Compares the average number of nodes explored by Euclidean Distance in random 100 by 100 mazes vs density for both A* and BFS}
 \label{Number of Nodes Explored vs Density}
 \end{figure}\\
-Up until around .5 density, the average number of explored nodes increases because there longer paths must be generated. Then after around .3, there are significantly more mazes that do not have a valid path from start to finish, so less nodes are explored because both there are less explorable nodes and less paths.
+Up until around .5 density, the average number of explored nodes in A* increases because longer paths must be generated with more barrier. Then after around .5, there are significantly more mazes that do not have a valid path from start to finish, so less nodes are explored because both there are less explorable nodes and less paths. \\
+For BFS, because the mazes are designed so the start is on the top left and end is on the bottom right, BFS will search almost all cells in the maze and will end up searching much more cells than A* when the density is low.
 
 \break
 \section{Problem 4}
@@ -54,13 +55,13 @@ Up until around .5 density, the average number of explored nodes increases becau
 \hline
 Search Algorithm & Max Size\\
 \hline
-DFS & 1500 by 1500\\
-BFS & 3400 by 3400\\
-A* & 1100 by 1100\\
+DFS & 1300 by 1300\\
+BFS & 3300 by 3300\\
+A* & 1500 by 1500\\
 \hline
 \end{tabular}
 \end{center}
-\caption{Within 60.00 seconds, at 0.3 Density, DFS can search a 1500 by 1500 maze, BFS can search a 3400 by 3400 maze, and A* can search a 1100 by 1100 maze.}
+\caption{Within 60.00 seconds, at 0.3 Density, DFS can search a 1300 by 1300 maze, BFS can search a 3300 by 3300 maze, and A* can search a 1500 by 1500 maze.}
 \label{Probability of a Graph with a Complete Path vs Density}
 \end{figure}
 A* is slow because it is spending too many operations finding which of its neighbors is closer to the end whenever scanning each cell. DFS is slow probably because the start and end cells are not randomly placed and DFS, in our case, scans neighbors starting from the top in a clockwise direction. So, DFS spreads in the downward-left direction while the goal is always in the downward-right direction.

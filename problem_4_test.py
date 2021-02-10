@@ -3,6 +3,7 @@ import dfs
 import bfs
 import a
 import time
+import json
 
 max_dimensions = {
     "dfs" : None,
@@ -21,12 +22,14 @@ density = .3
 size_increment = 100
 
 def get_largest_dim(name):
-    current_size = [0, 0]
+    current_size = [1000, 1000] # initial size to start with
+    largest_size = None
     search_function = search_functions[name]
 
     average_time = 0
     # test different sized mazes until an average time above the limit is found
     while average_time < 60:
+        largest_size = (current_size[0], current_size[1])
         current_size[0] += size_increment
         current_size[1] += size_increment
         m = maze.Maze(current_size[1], current_size[0], .5)
@@ -45,10 +48,15 @@ def get_largest_dim(name):
         average_time = total_time / tries
         print(("\tAverage time for {name} in {width} by {height}: {average_time:.2f}").format(name = name, width = current_size[1], height = current_size[0], average_time = average_time))
     print()
-    return current_size
+    return largest_size
 
 for name in search_functions:
     max_dimensions[name] = get_largest_dim(name)
+
+data = json.dumps(max_dimensions) # note, tuples will convert to lists
+file = open("./test_results/Max Size of Each Search.json", "w+")
+file.write(data)
+file.close()
 
 print("With density, .3, within a minute:")
 for name in max_dimensions:
