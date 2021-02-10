@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import maze
 import dfs
+import json
 
 width = 100
 height = 100
-tries = 50
-interval = .0625
+tries = 100
+interval = .0125
 
 densities = [] # X axis
 probabilities = [] # Y axis
@@ -28,8 +29,18 @@ while density < 1: # for each density
     densities.append(density)
     probabilities.append(probability)
 
+data = json.dumps(
+    {
+        "densities" : densities,
+        "probabilities" : probabilities,
+    }
+)
+file = open("./test_results/Probability of a Graph with a Path vs Density.json", "w+")
+file.write(data)
+file.close()
+
 plt.plot(densities, probabilities)
 plt.xlabel("Densities")
 plt.ylabel("Probabilities")
-plt.title("Probability of a Graph with a Path from Start to Finish with Varying Densities")
+plt.title("Probability of a Graph with a Path vs Density")
 plt.show()
