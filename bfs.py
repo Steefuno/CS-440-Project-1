@@ -27,18 +27,31 @@ def bfs(path, maze, start, end):
     }
     count = 0 # count the number of nodes explored 
 
+    # if start or end arent open
+    if maze.maze[start[0]][start[1]] != 0:
+        return count
+    if maze.maze[end[0]][end[1]] != 0:
+        return count
+
     while len(queue) > 0:
-        current = queue.pop(0) # pop from fringe
-        if current == end: # stop on end found
+        continue_search = step(maze, end, queue, predecessors, distances)
+        if continue_search == False:
             break
         count += 1
-        bfs_insert_neighbors(maze, current, queue, predecessors, distances) # add current's neighbors to queue and update distances
     
     if end in predecessors: # compile the path if end is found
         compile_path(path, end, predecessors)
         return count
     else:
         return count
+
+# handles one iteration of bfs
+def step(maze, end, queue, predecessors, distances):
+    current = queue.pop(0) # pop from fringe
+    if current == end: # stop on end found
+        return False
+    bfs_insert_neighbors(maze, current, queue, predecessors, distances) # add current's neighbors to queue and update distances
+    return True
 
 # updates the predecessors if possible for the current cell's neighbors and inserts back into the stack
 def bfs_insert_neighbors(maze, current, queue, predecessors, distances):
@@ -79,7 +92,7 @@ def compile_path(path, end, predecessors):
 maze = m.Maze(10, 10, .25)
 maze.output()
 path = []
-dfs(
+bfs(
     path,
     maze,
     (1, 1),
