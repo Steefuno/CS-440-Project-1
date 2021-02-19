@@ -8,7 +8,7 @@ import json
 width = 100
 height = 100
 density = 0.3
-tries = 5
+tries = 10
 interval = .25
 
 search_functions = {

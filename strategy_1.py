@@ -26,7 +26,7 @@ def run(maze, flammability):
             return False
 
         # if we reached the end, pass
-        if position_on_path == len(path) - 1:
+        if path[position_on_path] == end:
             return True
 
         # spread the fire
