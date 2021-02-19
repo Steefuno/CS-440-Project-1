@@ -47,7 +47,7 @@ def run(maze, flammability):
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
         except IndexError:  # just used to satisfy the try-except
-            oop = False
+            oop = oop
 
         try:
             # east
@@ -55,7 +55,7 @@ def run(maze, flammability):
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
         except IndexError:
-            oop = False
+            oop = oop
 
         try:
             # south
@@ -63,7 +63,7 @@ def run(maze, flammability):
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
         except IndexError:
-            oop = False
+            oop = oop
 
         try:
             # north
@@ -71,7 +71,7 @@ def run(maze, flammability):
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
         except IndexError:
-            oop = False
+            oop = oop
 
         if oop:
             if len(path) == 0:  # No path found
