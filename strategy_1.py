@@ -31,7 +31,6 @@ def run(maze, flammability):
 
         # spread the fire
         fire.advance_fire_one_step(maze)
-        maze.output()
 
         # if fire moved onto us, fail
         if maze.maze[ path[position_on_path][0] ][ path[position_on_path][1] ] != 0:

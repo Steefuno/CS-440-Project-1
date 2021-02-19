@@ -12,7 +12,6 @@ def add_fire(maze, flammability):
     # Note, if tile is a wall, we will replace the wall
     y = random.randrange(0, maze.height-1)
     x = random.randrange(0, maze.width-1)
-    print("Inserted fire at {p}".format(p = (y, x)))
     maze.maze[y][x] = 2
     maze.flammability = flammability
     return
