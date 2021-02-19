@@ -53,6 +53,5 @@ def run(maze, flammability):
             oop = True
         if oop:
             if len(path) == 0:  # No path found
-                print("\nNo possible paths")
                 return False
     return
