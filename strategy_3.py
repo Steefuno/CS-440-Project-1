@@ -26,8 +26,8 @@ def run(maze, flammability):
         try:    # was giving an out of bounds error?
             if maze.maze[path[position_on_path][0]][path[position_on_path][1]] != 0:
                 return False
-        except IndexError:
-            oop = False
+        except IndexError:  # if theres an index error at the current pos something is definitely wrong
+            return False
 
         # if we reached the end, pass
         if position_on_path == len(path) - 1:
@@ -42,13 +42,15 @@ def run(maze, flammability):
 
         # recalculate path if an immediate neighbor is on fire
         try:    # catches an out of bounds error in case the agent is on the edge of the maze
+            # west
             if maze.maze[path[position_on_path+1][0]][path[position_on_path][1]] != 0:
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
-        except IndexError:
-            oop = False     # just used to satisfy the try-except
+        except IndexError:  # just used to satisfy the try-except
+            oop = False
 
         try:
+            # east
             if maze.maze[path[position_on_path-1][0]][path[position_on_path][1]] != 0:
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
@@ -56,6 +58,7 @@ def run(maze, flammability):
             oop = False
 
         try:
+            # south
             if maze.maze[path[position_on_path][0]][path[position_on_path+1][1]] != 0:
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
@@ -63,6 +66,7 @@ def run(maze, flammability):
             oop = False
 
         try:
+            # north
             if maze.maze[path[position_on_path][0]][path[position_on_path-1][1]] != 0:
                 bfs.bfs(path, maze, path[1], end)
                 oop = True
