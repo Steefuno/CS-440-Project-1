@@ -37,7 +37,7 @@ def run(maze, flammability):
         if maze.maze[path[position_on_path][0]][path[position_on_path][1]] != 0:
             return False
 
-        # recalculate path if an immediate square is on fire
+        # recalculate path if an immediate neighbor is on fire
         oop = False
         if maze.maze[path[position_on_path+1][0]][path[position_on_path][1]] != 0:
             bfs.bfs(path, maze, path[1], end)
