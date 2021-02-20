@@ -19,6 +19,11 @@
 In the first part of the project, we demonstrate generating 2D mazes on command line and demonstrate navigating through the mazes using DFS, BFS, and A*.\\
 In the second part of the project, we demonstrate again navigating, however, there will be a special barrier randomly placed in the maze that expands randomly through neighboring cells.
 
+\section{Academic Integrity}
+It was agreed from when we first started that Steven Nguyen would handle problems 1, 2, 3, 4, 6, and 8 while Kyra Kennedy worked on strategy 3 and problems 5 and 7. Both members assisted in this write up.\\
+I, Steven Nguyen, have not copied our code or taken from online or another student's work.\\
+I, Kyra Kennedy, have not copied our code or taken from online or another student's work.
+
 \section{Problem 1}
 Please see the attached file, \emph{maze.py}, for both generating the maze structure and for filling the structure given parameters.
 
@@ -67,7 +72,7 @@ A* & 1500 by 1500\\
 A* is slow because it is spending too many operations finding which of its neighbors is closer to the end whenever scanning each cell. DFS is slow probably because the start and end cells are not randomly placed and DFS, in our case, scans neighbors starting from the top in a clockwise direction. So, DFS spreads in the downward-left direction while the goal is always in the downward-right direction.
 
 \section{Problem 5}
-For strategy 3, aptly named Too H.O.T. to Handel, where H.O.T stands for Hop Out The way. For this strategy, at each step the agent checks its immediate neighbors to its north, south, east, and west. If one of them is on fire, a new path is computed, otherwise it continues on the last path it computed. By doing so, a new path doesn't have to be created at every turn, such as in strategy 2, but still allows for re-computation, unlike strategy 1.\\
+For strategy 3, named Too H.A.W.T. to Handel, where H.A.W.T stands for Hop Along Without Threat. For this strategy, at each step the agent checks its immediate neighbors to its north, south, east, and west. If one of them is on fire, a new path is computed, otherwise it continues on the last path it computed. By doing so, a new path doesn't have to be created at every turn, such as in strategy 2, but still allows for re-computation, unlike strategy 1.\\
 This accounts for the unknown future in that when fire is nearby, it acknowledges that it poses a threat in the near future and computes a new path to now avoid it. In this way, the strategy is more aware of where the fire is and how it should move around it.
 
 \break
@@ -85,7 +90,7 @@ Strategy 1 is the worse overall in pathfinding with fire with no accompanyment o
 The three strategies run the same while the fire is minimal because they only differ in fire detection.
 
 \section{Problem 7}
-With unlimited computational resources, strategy 3 could be improved with a more Stochastic model. This would be able to calculate an indepth game tree for any size maze and allow the agent to find the most effective path even for future fire spread. Since the code for this was gone over in recitation, it wasn't the chosen strategy, but its inclusion would improve the code's ability to plan for the future spread by analyzing all possible paths of the fire.
+With unlimited computational resources, strategy 3 could be improved with a more Stochastic model. This would be able to calculate an indepth game tree for any size maze and allow the agent to find the most efficient path even when accounting for future fire spread. Since the code for this was gone over in recitation, it wasn't chosen for strategy 3, but its inclusion would improve the code's ability to plan for the future spread by analyzing all possible paths of the fire.
 
 \section{Problem 8}
 With a limited time between moves, we would reduce the computation by reducing the length of the path used in the prediction e.g., pathfind to just a bit after the fire rather than all the way to the end; and by reducing how many paths are searched when predicting, such as paths that go in the opposite direction of the goal.
