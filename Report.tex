@@ -25,7 +25,7 @@ Please see the attached file, \emph{maze.py}, for both generating the maze struc
 \break
 \section{Problem 2}
 Please see the attached file, \emph{dfs.py}, for the implementation of DFS.\\
-For finding if a point is reachable from the other, DFS is better than BFS in this case because while both searches find the path in at most the same amount of steps and at least the same amount of steps, DFS uses a much less amount of memory while searching.\\
+For finding if a point is reachable from the other, DFS is better than BFS in this case because while both searches find the path in at most the same amount of steps and at least the same amount of steps, DFS uses a much less amount of memory while searching.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{Probability of a Graph with Path vs Density.png}
 \caption{Compares the probability that a graph has at least one valid path from start to finish using Manhattan Distance in random 100 by 100 mazes vs density}
@@ -36,7 +36,7 @@ We determined that as density increases, the probability that a maze has at leas
 \break
 \section{Problem 3}
 Please see the attached files, \emph{bfs.py} and \emph{a.py}, for the implementations of BFS and A*.\\
-In our project, when plotting \emph{the number of nodes explored by BFS} and \emph{the number of nodes explored by A*} vs \emph{the density of the generated maze}.\\
+In our project, when plotting \emph{the number of nodes explored by BFS} and \emph{the number of nodes explored by A*} vs \emph{the density of the generated maze}.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{Number of Nodes Explored vs Density.png}
 \caption{Compares the average number of nodes explored by Euclidean Distance in random 100 by 100 mazes vs density for both A* and BFS}
@@ -72,8 +72,17 @@ This accounts for the unknown future in that when fire is nearby, it acknowledge
 
 \break
 \section{Problem 6}
-[Insert plot for success rates here]
-do be do be do ba
+Please see the attached files, \emph{strategy\_1.py}, \emph{strategy\_2.py}, and \emph{strategy\_3.py} for the implementations of strategies 1, 2, and 3.\\
+Strategy 1 does BFS at the beginning of the pathfinding and continues using that path.\\
+Strategy 2 does BFS at each step recalculating a new path to accompany the changing fires.\\
+Strategy 3 does BFS when the current cell is neighbored by a fire.
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Success Rate vs Flammability.png}
+\caption{Compares the success rates of the 3 strategies given different fire flammabilites.}
+\label{Success Rate vs Flammability}
+\end{figure}\\
+Strategy 1 is the worse overall in pathfinding with fire with no accompanyment of the changing fire. Strategy 2 is the best by changing the path each step. Strategy 3 is similar to strategy 2, but though it doesn't change the path often enough to completely avoid being caught by fire, it runs much faster by not running BFS as often.\\
+The three strategies run the same while the fire is minimal because they only differ in fire detection.
 
 \section{Problem 7}
 With unlimited computational resources, strategy 3 could be improved with a more Stochastic model. This would be able to calculate an indepth game tree for any size maze and allow the agent to find the most effective path even for future fire spread. Since the code for this was gone over in recitation, it wasn't the chosen strategy, but its inclusion would improve the code's ability to plan for the future spread by analyzing all possible paths of the fire.

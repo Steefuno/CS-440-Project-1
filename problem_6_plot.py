@@ -5,11 +5,11 @@ import maze
 import matplotlib.pyplot as plt
 import json
 
-width = 100
-height = 100
+width = 50
+height = 50
 density = 0.3
-tries = 10
-interval = .25
+tries = 100
+interval = .05
 
 search_functions = {
     "strategy 1" : strategy_1.run,
@@ -23,6 +23,7 @@ for (strategy, _) in search_functions.items():
 
 flammabilities = []
 
+copy = maze.Maze(width, height, .5)
 m = maze.Maze(width, height, .5)
 
 flammability = 0
@@ -38,7 +39,8 @@ while flammability <= 1:
     for i in range(0, tries):
         m.generate_maze(density)
         for (strategy, search_function) in search_functions.items():
-            result = search_function(m, flammability)
+            copy.maze = m.maze.copy()
+            result = search_function(copy, flammability)
             if result == True: # if made a path
                 successes[strategy] += 1
             if result != None: # if attempted a path on a maze with atleast one path
@@ -50,7 +52,7 @@ while flammability <= 1:
         success_rate = 0
         if counts[strategy] > 0:
             success_rate = successes[strategy] / counts[strategy]
-        print("{0} Success Rate: {1}".format(strategy, success_rate))
+        print("{0} Success Rate: {1} Count: {2}".format(strategy, success_rate, counts[strategy]))
         success_rates[strategy].append(success_rate)
     flammability += interval
 

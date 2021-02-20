@@ -14,8 +14,6 @@ def run(maze, flammability):
     bfs.bfs(path, maze, start, end)
     if len(path) == 0: # No path found
         return None
-    if path[0] == end:
-        return True
 
     # step on the path, spread fire, then create a new path
     while True:

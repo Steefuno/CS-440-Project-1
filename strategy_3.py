@@ -16,10 +16,11 @@ def run(maze, flammability):
         return None
 
     position_on_path = 0
+
     # tread the path
     while True:
-        # step to next on path
         position_on_path += 1
+        # step to next on path
         oop = False
 
         # if we stepped into fire, fail
@@ -30,7 +31,7 @@ def run(maze, flammability):
             return False
 
         # if we reached the end, pass
-        if position_on_path == len(path) - 1:
+        if path[position_on_path] == end:
             return True
 
         # spread the fire
@@ -43,38 +44,46 @@ def run(maze, flammability):
         # recalculate path if an immediate neighbor is on fire
         try:    # catches an out of bounds error in case the agent is on the edge of the maze
             # west
-            if maze.maze[path[position_on_path+1][0]][path[position_on_path][1]] != 0:
-                bfs.bfs(path, maze, path[1], end)
+            if not oop and maze.maze[path[position_on_path][0]][path[position_on_path][1]-1] == 2:
+                bfs.bfs(path, maze, path[position_on_path], end)
                 oop = True
         except IndexError:  # just used to satisfy the try-except
             oop = oop
 
         try:
             # east
-            if maze.maze[path[position_on_path-1][0]][path[position_on_path][1]] != 0:
-                bfs.bfs(path, maze, path[1], end)
+            if not oop and maze.maze[path[position_on_path][0]][path[position_on_path][1]+1] == 2:
+                bfs.bfs(path, maze, path[position_on_path], end)
                 oop = True
         except IndexError:
             oop = oop
 
         try:
             # south
-            if maze.maze[path[position_on_path][0]][path[position_on_path+1][1]] != 0:
-                bfs.bfs(path, maze, path[1], end)
+            if not oop and maze.maze[path[position_on_path][0]+1][path[position_on_path][1]] == 2:
+                bfs.bfs(path, maze, path[position_on_path], end)
                 oop = True
         except IndexError:
             oop = oop
 
         try:
             # north
-            if maze.maze[path[position_on_path][0]][path[position_on_path-1][1]] != 0:
-                bfs.bfs(path, maze, path[1], end)
+            if not oop and maze.maze[path[position_on_path][0]-1][path[position_on_path][1]] == 2:
+                bfs.bfs(path, maze, path[position_on_path], end)
                 oop = True
         except IndexError:
             oop = oop
 
         if oop:
+            position_on_path = 0
             if len(path) == 0:  # No path found
                 return False
 
     return
+
+# test
+"""
+import maze
+m = maze.Maze(10, 10, .15)
+print( run(m, .5) )
+"""
