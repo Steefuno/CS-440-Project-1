@@ -57,7 +57,7 @@ while flammability <= 1:
     flammability += interval
 
 data = json.dumps({"success_rates": success_rates, "flammabilities": flammabilities}) # note, tuples will convert to lists
-file = open("./test_results/Strategy 1 2 3 Success Rates vs. Flammability", "w+")
+file = open("./test_results/Strategy 1 2 3 Success Rates vs Flammability.json", "w+")
 file.write(data)
 file.close()
 
